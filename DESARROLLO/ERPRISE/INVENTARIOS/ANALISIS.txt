@@ -1,0 +1,2 @@
+Ventana de Artículos 
+	Debe de guardar los valores de los checks Existencias y Series / Lotes 

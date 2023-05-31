@@ -1,0 +1,22 @@
+DECLARE @TABLA AS VARCHAR(100)	=	'tDIGarchivos'
+declare @CAMPO AS VARCHAR(100)	=	'Longitud'
+DECLARE	@sql AS VARCHAR(MAX)	=	(SELECT 'IF EXISTS(SELECT * FROM SYS.DEFAULT_CONSTRAINTS WHERE PARENT_OBJECT_ID = OBJECT_ID('''+@TABLA+''') AND NAME = '''+name+''') '+CHAR(13)+'ALTER TABLE '+@TABLA+' DROP CONSTRAINT '+ name +' '
+									 FROM SYS.DEFAULT_CONSTRAINTS 
+									 WHERE PARENT_OBJECT_ID = OBJECT_ID(''+@TABLA+'') AND COL_NAME(parent_object_id,parent_column_id) = @CAMPO)
+IF NOT @sql IS NULL
+EXECUTE(@sql)
+
+IF EXISTS(SELECT * FROM SYS.COLUMNS WHERE OBJECT_ID = OBJECT_ID(@Tabla) AND NAME = @CAMPO)
+	EXEC ('ALTER TABLE '+@Tabla+' ALTER COLUMN '+@Campo+' NUMERIC(23, 8)NOT NULL ')
+
+DECLARE @query NVARCHAR(1000)= 'SET @Counter = (SELECT COUNT(*) FROM SYS.DEFAULT_CONSTRAINTS WHERE PARENT_OBJECT_ID = OBJECT_ID('''+@Tabla+''') AND COL_NAME(parent_object_id,parent_column_id) = '''+@CAMPO+''') '
+
+
+DECLARE @Counter INT;
+EXEC sp_executesql @query,N'@Counter int OUTPUT', @Counter OUTPUT;
+IF @Counter = 0
+	EXEC ('ALTER TABLE '+@Tabla+' ADD CONSTRAINT DF_'+@Tabla+'_'+@Campo+'  DEFAULT 0 FOR '+@Campo+' ' )
+	
+GO
+
+

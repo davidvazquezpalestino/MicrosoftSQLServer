@@ -1,0 +1,121 @@
+❶ Dominando C#
+➔ Básico
+⯈ #01 Introducción a . RED: https://youtu.be/TxaZYXtZWCM
+⯈ #02 Solución y Proyecto: https://youtu.be/t2aMZFzV3jI
+⯈ #03 Variables: https://youtu.be/j87UkenRf7k
+⯈ #04 Tipos y Operadores Booleanos: https://youtu.be/D9VD0mn6mss
+⯈ #05 matrices: https://youtu.be/XTB3V6R1L-c
+⯈ #06 Expresiones: https://youtu.be/eOqTJWuCXho
+⯈ #07 Casting / Tipo de conversión: https://youtu.be/ByIQf4VS2d4
+⯈ #08 Solución de problemas y depuración: https://youtu.be/KM7oJW_XW8I
+➔ Programación intermedia - OOP y estructurada
+⯈ #09 Campo y constante: https://youtu.be/LEhv_owDo0o
+⯈ #10 Métodos: https://youtu.be/GkmlPDc_5Dc
+   ⯈ #11 Constructor: https://youtu.be/pkQHHS3XAa8
+⯈ #12 Propiedades: https://youtu.be/2LXzNQSTHTc
+⯈ #13 índices: https://youtu.be/rvNJrgj6ilg
+⯈ #14 Delegado: https://youtu.be/8aWHZncV95Q
+⯈ #15 Eventos: https://youtu.be/F3ryldPGQoM
+⯈ #16 Sobrecarga de operador: https://youtu.be/Cm6mKU2cQls
+⯈ #17 Finalizer: https://youtu.be/-gWx_NILonQ
+⯈ #18 Tipos anidados: https://youtu.be/mkOAASe1VMk
+https://youtu.be/rhupFUHBwvY #19 Stucto:
+⯈ #20 Enum: https://youtu.be/3pbfQ-ZDoyc
+⯈ #21 Herencia: https://youtu.be/cw1BXqkok1k
+⯈ #22 Interfaz: https://youtu.be/02EEtFtes_0
+➔ Avanzado
+⯈ #23 Genéricos: https://youtu.be/xE6bS6EfKAc
+⯈ #24 tipos genéricos de delegados: https://youtu.be/QgiaxQa2ccw
+⯈ #25 Excepciones: https://youtu.be/mA1pOrYAHCU
+⯈ #26 Enumeradores e iteradores: https://youtu.be/qvqp9qJnigs
+⯈ #27 Documentación XML: https://youtu.be/CoBhSJiZCSA
+⯈ #28 Métodos de extensión: https://youtu.be/AdperlFqPWQ
+⯈ #29 Asambleas: https://youtu.be/X1IPGHZ1yJw
+⯈ #30 Reflexión y metadatos: https://youtu.be/hkuBpG0QyrU
+⯈ #31 Atributos: https://youtu.be/UkGF0SJzDN4
+⯈ #32 listas y diccionarios: https://youtu.be/HNmAzIRfwoI
+⯈ #33 Pila y cola: https://youtu.be/-GpTnKa0myM
+⯈ #34Lista vinculada, HashSet y Conjunto Ordenado: https://youtu.be/BKYiNKfmuGk
+35 #35 Stream I/O: https://youtu.be/XG3AY2MDj7M
+⯈ #36 Threading: https://youtu.be/ndQQssx_RQA
+⯈ #37 Programación asincrónica: https://youtu.be/kDUDX3VJFEc
+⯈ #38 Serialización en . RED: https://youtu.be/N_e_L5SM4nY
+⯈ #39 Paquetes Nuget: https://youtu.be/gErOvEKLyz8
+⯈ #40 Foreach / Rendimiento profundo: https://youtu.be/z6eBV2iPEC8
+➔ Nuevas características en las últimas. Actualizaciones NET
+⯈ #41 Records: https://youtu.be/N2qewr8yeuI
+⯈ #42 Declaración de nivel superior: https://youtu.be/EOu4cYTj_aE
+⯈ #43 Tipos Nullables: https://youtu.be/6-AdjwK43hM
+⯈ #44 cuerdas de inmersión profunda: https://youtu.be/-Mtg5K_iaoU
+⯈ #45 StringBuilder Inmersión profunda: https://youtu.be/W6zq_rllF6Q
+❷ Curso SQL Server y RDBMS
+Servidor #01 Servidor SQL y base de datos: https://youtu.be/QO8DtgX5pnU
+⯈ #02 Introducción a la base de datos: https://youtu.be/gm12_NaDAug
+⯈ #03 Normalización de la base de datos: https://youtu.be/0Jps8KJSjy4
+⯈ #04 Lenguaje de Manipulación de Datos (DML): https://youtu.be/KZdqZJwsnRw
+⯈ #05 Índices de base de datos: https://youtu.be/F3jRzYhjW7k
+⯈ #06 Procedimiento, funciones y vistas: https://youtu.be/0BIobGZlkRg
+⯈ #07 Gestiona tu base de datos: https://youtu.be/9mcm2-B8Jf0
+⯈ #08 Masterización de consultas DB: https://youtu.be/oSLeuvYxK_Y
+❸ Principios de diseño
+⯈ #01 Introducción: https://youtu.be/8ERTNH0diNo
+⯈ #02 Encapsular lo que varía: https://youtu.be/IDOoRUTEsy4
+⯈ #03 Composición favorita sobre la herencia: https://youtu.be/948Bzy82fDQ
+⯈ #04 Suelto Vs. Acoplamiento apretado: https://youtu.be/bpkWaL_lkSw
+⯈ #05 SOLIDO - Principio de responsabilidad única [SRP]: https://youtu.be/AcBQlzG8eio
+⯈ #06 SÓLIDO - Principio cerrado abierto [OCP]: https://youtu.be/k_JSqG9Zwvo
+⯈ #07 SÓLIDO - Principio de sustitución de Liskov [LSP]: https://youtu.be/jbt2TFjO7Gw
+⯈ #08 SOLID - Principio de segregación de interfaz [ISP]: https://youtu.be/3YvagT89dKE
+⯈ #09 SÓLIDO - Principio de inversión de dependencia [DIP]: https://youtu.be/q8hZN0tJlBY
+Dominando LINQ
+⯈ #01 Función pura vs. Impura: https://youtu.be/XLIqOBr7Cm0
+⯈ #02 Programación funcional: https://youtu.be/_fE7q11rt40
+⯈ #03 Núcleo de LINQ: https://youtu.be/8jkN8XCj9Og
+⯈ #04 Operación de proyección: https://youtu.be/XEuXe18D6XY
+⯈ #05 Datos de clasificación: https://youtu.be/5RtrL0qKju8
+⯈ #06 Particionamiento de datos: https://youtu.be/ILyx4Np5KiM
+⯈ #07 Cuantificadores: https://youtu.be/MCzMd1I52xg
+⯈ #08 Datos de agrupación: https://youtu.be/DEKxvN7zp9Q
+⯈ #09 Únete a Operaciones: https://youtu.be/H11HJqyuFGQ
+⯈ #10 Operaciones de generación: https://youtu.be/fpPv5ji2OBE
+⯈ #11 Element Operations: https://youtu.be/yiZE_9vYwas
+⯈ #12 Operaciones de igualdad: https://youtu.be/z8B55eOa2es
+⯈ #13 Concatenación: https://youtu.be/yIeoJ3w9bcg
+⯈ #14 Operaciones totales: https://youtu.be/AwvWjMuA9h0
+⯈ #15 operaciones de conjuntos: https://youtu.be/E_zBIdW7YtU
+⯈ #16 Árboles de Expresión: https://youtu.be/ZgDxnaO93Ao
+⯈ #17 IEnumerable Vs. IQueryable: https://youtu.be/DKr16qsi4RA
+⯈ #18 Convertiendo tipos de datos: https://youtu.be/v8eyJPIbdQ0
+⯈ #19 Método de extensión LINQ personalizado: https://youtu.be/QJXNCa6DGQs
+⯈ #20 Anatomía LINQ: https://youtu.be/oPbTgRi0JoA
+❺ Pruebas de unidad y pruebas de software
+⯈ #01 Introducción: https://youtu.be/HzjMcd1jEio
+⯈ #02 Código de prueba con Frameworks: https://youtu.be/cI45zJ1FapM
+⯈ #03 Unidad Prueba tu código: https://youtu.be/cAyROJ84tBs
+⯈ #04 Burlándose de dependencias: https://youtu.be/JaIeeGqsO9M
+⯈ #05 Hecho, teoría y código de cobertura: https://youtu.be/W5w-5EK94wc
+❻ Lenguaje de Modelado unificado
+⯈ #01 Introducción: https://youtu.be/qlNlZ1xMVtU
+⯈ #02 Diagrama de clase: https://youtu.be/ErrYTi9ibx4
+❼ dotnet CLI y Vs. Código
+⯈ #01 Introducción a . NET CLI: https://youtu.be/3FaIaGzbjMs
+⯈ #02 Introducción a VS. Código: https://youtu.be/ykfeeBeGAMk
+❽ Control de la fuente de versión
+⯈ #01 Introducción al control de la fuente de la versión: https://youtu.be/vmKeIpVaPvQ
+⯈ #02 Flujo de trabajo básico de Git: https://youtu.be/VxMFMgnpV3A
+⯈ #03 Repositorios remotos Github: https://youtu.be/1KDXTQvmPbo
+⯈ #04 Tratando con repositorios remotos: https://youtu.be/K7cGrHdO4Ow
+⯈ #05 GIT ramificación y fusión: https://youtu.be/o2PW8xe5CSk
+⯈ #06 Solicitud de Tirar: https://youtu.be/GwKLwJgm7Qw
+❾ Patrón de diseño
+⯈ #01 Introducción al patrón de diseño: https://youtu.be/8OitfyFqboA
+⯈ #02 Singleton: https://youtu.be/-9fFuFkuQeU
+❿ Acceso a datos y EF-Core
+⯈ #01 Introducción al acceso a datos y ORM: https://youtu.be/ZxRTyoEeXhk
+Bambú #02 ADO. RED: https://youtu.be/WEVJeTBifAY
+⯈ #03 Dapper: https://youtu.be/XjExbuSCIZw
+⯈ #04 NHibernate: https://youtu.be/JMqza_3rg5Q
+⯈ #05 EF-CORE Comienzo de salto: https://youtu.be/4edLDnhS0NA
+⯈ #06 DbContexto: https://youtu.be/fKaIu43bW6g
+⯈ #07 Configuración EF-CORE: https://youtu.be/GHyeugqpMPU
+⯈ #08 EF-CORE Ingeniería inversa: https://youtu.be/vBDvSqiseP0

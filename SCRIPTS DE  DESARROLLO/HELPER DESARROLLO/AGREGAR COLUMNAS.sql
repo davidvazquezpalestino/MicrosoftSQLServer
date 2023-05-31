@@ -1,0 +1,20 @@
+DECLARE @TableName VARCHAR(100) = 'tSPEIenvioPeticiones';
+DECLARE @commandoSql AS VARCHAR(MAX) = '';
+
+SELECT @commandoSql = @commandoSql +
+     'IF NOT EXISTS (SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = ''' + TABLE_NAME + ''' AND COLUMN_NAME = ''' + COLUMN_NAME + ''')
+BEGIN
+	ALTER TABLE '+ TABLE_NAME + ' ADD ' + COLUMN_NAME + ' ' + UPPER(DATA_TYPE) + ' '
+      + IIF(DATA_TYPE IN ( 'varchar' ), '(' + CONCAT(CHARACTER_MAXIMUM_LENGTH, '') + ')', '') + ' '
+      + IIF(IS_NULLABLE = 'NO', 'NOT NULL', 'NULL') + ' '
+      + IIF(COLUMN_DEFAULT IS NULL, '', CONCAT('DEFAULT ', COLUMN_DEFAULT)) + '  
+END ' + CHAR(13)
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE  TABLE_NAME = @TableName
+	
+
+
+SELECT   @commandoSql;
+
+
+

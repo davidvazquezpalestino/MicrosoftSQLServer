@@ -1,0 +1,41 @@
+DECLARE @query AS nvarchar (400 ), @column_name as varchar(max)
+DECLARE CursorIdProductos CURSOR FOR
+
+SELECT 'ALTER TABLE ' + INFORMATION_SCHEMA.COLUMNS.TABLE_NAME +' ALTER COLUMN ' + COLUMN_NAME + ' ' + DATA_TYPE +
+	CASE	WHEN CHARACTER_MAXIMUM_LENGTH = -1 then '(max)'
+			WHEN DATA_TYPE in ('text','ntext') then ''
+			WHEN CHARACTER_MAXIMUM_LENGTH IS NOT NULL THEN '('+(CONVERT(VARCHAR,CHARACTER_MAXIMUM_LENGTH)+')' )
+			ELSE isnull(CONVERT(VARCHAR,CHARACTER_MAXIMUM_LENGTH),' ') 
+	END
++' COLLATE SQL_Latin1_General_CP1_CI_AI ' + CASE IS_NULLABLE WHEN 'YES'	THEN 'NULL'
+															 WHEN 'No'	THEN 'NOT NULL' 
+											END,COLUMN_NAME
+	
+FROM INFORMATION_SCHEMA.COLUMNS INNER JOIN INFORMATION_SCHEMA.TABLES
+ON INFORMATION_SCHEMA.COLUMNS.TABLE_NAME = INFORMATION_SCHEMA.TABLES.TABLE_NAME
+AND INFORMATION_SCHEMA.COLUMNS.TABLE_SCHEMA = INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA
+WHERE DATA_TYPE IN ('varchar' ,'char','nvarchar','nchar','text','ntext')AND TABLE_TYPE = 'BASE TABLE'
+AND COLLATION_NAME <> 'SQL_Latin1_General_CP1_CI_AI' 
+
+
+OPEN CursorIdProductos
+FETCH NEXT FROM CursorIdProductos INTO @query, @column_name
+WHILE @@fetch_status = 0
+     BEGIN
+     
+
+ BEGIN TRY 
+	execute (@query)
+ END TRY
+ BEGIN CATCH
+    PRINT 'ERROR: Some index or contraint rely on the column ' + @column_name + '. No conversion possible.'
+    PRINT @query
+ END CATCH
+
+   
+FETCH NEXT FROM CursorIdProductos INTO @query, @column_name
+     END
+CLOSE CursorIdProductos
+DEALLOCATE CursorIdProductos
+
+
