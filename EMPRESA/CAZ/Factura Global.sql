@@ -1,8 +1,9 @@
 
-DECLARE @IdPeriodo INT = 381;
+DECLARE @IdPeriodo INT = 382;
 
 INSERT INTO dbo.tFELfacturaGlobalIngresos (IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, 
 IVAInteresOrdinario, InteresMoratorio, IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA)
+
 SELECT Operacion.IdOperacion,
        Periodo.IdPeriodo,
        PolizaD.IdTransaccionFinanciera,
@@ -77,9 +78,9 @@ WHERE Poliza.IdPeriodo = @IdPeriodo
 
 DECLARE @IdComprobante INT;
 
-EXECUTE dbo.pFELgenerarFacturaGlobal @IdPeriodo = 381, -- int
+EXECUTE dbo.pFELgenerarFacturaGlobal @IdPeriodo = @IdPeriodo, -- int
                                      @IdSucursal = 1, -- int
-                                     @FechaTrabajo = '2023-04-30', -- date
+                                     @FechaTrabajo = '2023-05-31', -- date
                                      @IdComprobante = @IdComprobante OUTPUT -- int
 
 SELECT @IdComprobante

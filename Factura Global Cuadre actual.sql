@@ -1,10 +1,10 @@
-DECLARE @IdPeriodo INT = 381;
+DECLARE @IdPeriodo INT = 382;
 
 --INSERT INTO dbo.tFELfacturaGlobalIngresos ( IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, IVAInteresOrdinario, InteresMoratorio, 
 --											IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA, IdCuenta, IdPersona )
 SELECT Operacion.IdOperacion,
        Poliza.IdPeriodo,
-       PolizaD.IdTransaccionFinanciera,
+       TransaccionFinanciera.IdTransaccion,
        OperacionD.IdOperacionD,
        PolizaD.IdImpuesto,
        InteresOrdinario = CASE WHEN AsientoD.Campo IN ('InteresOrdinarioPagado', 'InteresOrdinarioPagadoVencido') THEN
@@ -49,8 +49,8 @@ SELECT Operacion.IdOperacion,
                   ELSE OperacionD.IVA
              END,
        IdCuenta = Cuenta.IdCuenta,
-       Cuenta.IdSocio, 
-	   Poliza.IdPolizaE
+       Cuenta.IdSocio,
+       Poliza.IdPolizaE
 FROM dbo.tCNTpolizasE Poliza WITH ( NOLOCK )
 INNER JOIN dbo.tCATlistasD TipoPoliza WITH ( NOLOCK ) ON TipoPoliza.IdListaD = Poliza.IdListaDpoliza
 INNER JOIN dbo.tCTLperiodos Periodo WITH ( NOLOCK ) ON Periodo.IdPeriodo = Poliza.IdPeriodo
@@ -69,13 +69,4 @@ INNER JOIN dbo.tCTLsucursales Sucursal WITH ( NOLOCK ) ON Sucursal.IdSucursal = 
 INNER JOIN dbo.tIMPimpuestos ImpuestoOperacionD WITH ( NOLOCK ) ON ImpuestoOperacionD.IdImpuesto = OperacionD.IdImpuesto
 INNER JOIN dbo.tIMPimpuestos ImpuestoTransaccionFinanciera WITH ( NOLOCK ) ON ImpuestoTransaccionFinanciera.IdImpuesto = TransaccionFinanciera.IdImpuesto
 INNER JOIN dbo.tGRLbienesServicios BienServicio WITH ( NOLOCK ) ON BienServicio.IdBienServicio = PolizaD.IdBienServicio
-WHERE Poliza.IdPeriodo = @IdPeriodo
-  AND Poliza.IdEstatus = 1
-  AND ( ( AsientoD.Campo IN ('InteresMoratorioPagado', 'InteresMoratorioPagadoVencido', 'InteresOrdinarioPagado', 'InteresOrdinarioPagadoVencido')
-      AND AsientoD.IdTipoDDominio = 143 )
-     OR ( AsientoD.IdTipoDRubro = 2726
-       OR AsientoD.Campo IN ('Subtotal')
-      AND AsientoD.IdTipoOperacion = 17 )) AND (TransaccionFinanciera.IdTransaccion <> 0 OR OperacionD.IdOperacionD <> 0) AND OperacionD.IdOperacionD <> 0;
-
-
-
+WHERE Poliza.IdPeriodo = @IdPeriodo AND Poliza.IdEstatus = 1 AND (( AsientoD.Campo IN ('InteresMoratorioPagado', 'InteresMoratorioPagadoVencido', 'InteresOrdinarioPagado', 'InteresOrdinarioPagadoVencido') AND AsientoD.IdTipoDDominio = 143 ) OR ( AsientoD.IdTipoDRubro = 2726 OR AsientoD.Campo IN ('Subtotal') AND AsientoD.IdTipoOperacion = 17 )) AND ( TransaccionFinanciera.IdTransaccion <> 0 OR OperacionD.IdOperacionD <> 0 ) AND OperacionD.IdOperacionD <> 0;
