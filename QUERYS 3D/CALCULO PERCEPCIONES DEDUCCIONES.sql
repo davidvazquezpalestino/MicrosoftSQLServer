@@ -1,1 +1,1 @@
-EXECUTE dbo.pDnNOMResumenCalculoNominaPeriodo @PeriodoNomina = '2023-05';
+EXECUTE dbo.pDnNOMResumenCalculoNominaPeriodo @PeriodoNomina = '2024-10';
