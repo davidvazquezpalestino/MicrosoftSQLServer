@@ -1,8 +1,8 @@
 SELECT dbo.fGETidPeriodo (CURRENT_TIMESTAMP) - 1;
 
-DECLARE @IdPeriodo INT = 395;
+DECLARE @IdPeriodo INT = 398;
 
-INSERT INTO dbo.tFELfacturaGlobalIngresos ( IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, IVAInteresOrdinario, InteresMoratorio, IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA )
+--INSERT INTO dbo.tFELfacturaGlobalIngresos ( IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, IVAInteresOrdinario, InteresMoratorio, IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA )
 SELECT Operacion.IdOperacion,
        Periodo.IdPeriodo,
        PolizaD.IdTransaccionFinanciera,
@@ -76,9 +76,11 @@ AND   NOT EXISTS ( SELECT 1 -- EXCLUIMOS LAS CUENTAS QUE YA SE TIMBRARON EN EL P
 
 DECLARE @IdComprobante INT;
 
-EXECUTE dbo.pFELgenerarFacturaGlobal @IdPeriodo = 395, -- int
+EXECUTE dbo.pFELgenerarFacturaGlobal @IdPeriodo = 398, -- int
                                      @IdSucursal = 1, -- int
-                                     @FechaTrabajo = '2024-05-31', -- date
+                                     @FechaTrabajo = '2024-08-31', -- date
                                      @IdComprobante = @IdComprobante OUTPUT; -- int
 
 SELECT @IdComprobante;
+
+
