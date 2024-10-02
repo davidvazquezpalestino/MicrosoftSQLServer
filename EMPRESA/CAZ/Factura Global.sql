@@ -1,8 +1,8 @@
 SELECT dbo.fGETidPeriodo (CURRENT_TIMESTAMP) - 1;
 
-DECLARE @IdPeriodo INT = 398;
+DECLARE @IdPeriodo INT = 399;
 
---INSERT INTO dbo.tFELfacturaGlobalIngresos ( IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, IVAInteresOrdinario, InteresMoratorio, IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA )
+INSERT INTO dbo.tFELfacturaGlobalIngresos ( IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, IVAInteresOrdinario, InteresMoratorio, IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA )
 SELECT Operacion.IdOperacion,
        Periodo.IdPeriodo,
        PolizaD.IdTransaccionFinanciera,
@@ -41,7 +41,8 @@ SELECT Operacion.IdOperacion,
                  WHEN AsientoD.Campo IN ('InteresOrdinarioPagado', 'InteresOrdinarioPagadoVencido') THEN
                       TransaccionFinanciera.IVAInteresOrdinarioPagado
                  ELSE OperacionD.IVA
-             END
+             END 
+
 FROM dbo.tCNTpolizasE Poliza WITH ( NOLOCK )
 INNER JOIN dbo.tCTLperiodos Periodo WITH ( NOLOCK ) ON Periodo.IdPeriodo = Poliza.IdPeriodo
 INNER JOIN dbo.tCNTpolizasD PolizaD WITH ( NOLOCK ) ON Poliza.IdPolizaE = PolizaD.IdPolizaE
@@ -76,9 +77,9 @@ AND   NOT EXISTS ( SELECT 1 -- EXCLUIMOS LAS CUENTAS QUE YA SE TIMBRARON EN EL P
 
 DECLARE @IdComprobante INT;
 
-EXECUTE dbo.pFELgenerarFacturaGlobal @IdPeriodo = 398, -- int
+EXECUTE dbo.pFELgenerarFacturaGlobal @IdPeriodo = 399, -- int
                                      @IdSucursal = 1, -- int
-                                     @FechaTrabajo = '2024-08-31', -- date
+                                     @FechaTrabajo = '2024-09-30', -- date
                                      @IdComprobante = @IdComprobante OUTPUT; -- int
 
 SELECT @IdComprobante;

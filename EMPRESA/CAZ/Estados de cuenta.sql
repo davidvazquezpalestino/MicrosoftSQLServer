@@ -6,7 +6,7 @@ SELECT @IdPeriodo = IdPeriodo,
        @Inicio = Inicio,
        @Fin = Fin
 FROM dbo.tCTLperiodos
-WHERE Codigo = '2024-07';
+WHERE Codigo = '2024-09';
 
 SELECT Cuenta.IdCuenta,
        CONCAT ('EXECUTE dbo.pFELgenerarEstadoCuentaBancario @IdSocio = ', Socio.IdSocio, ', @IdCuenta = ', Cuenta.IdCuenta, ', @IdPeriodo = ', @IdPeriodo)
@@ -57,21 +57,13 @@ SELECT Det.IdComprobante,
        Base = SUM (Det.Base)
 FROM dbo.tFELdetalleImpuesto Det
 INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = Det.IdComprobante
-WHERE edo.IdPeriodo = 397
+WHERE edo.IdPeriodo = 399
   AND NOT EXISTS ( SELECT 1
                    FROM dbo.tIMPimpuestosComprobantes imp
-                   WHERE imp.IdComprobante = Det.IdComprobante )
+                   WHERE imp.IdComprobante = Det.IdComprobante AND imp.TipoFactor = Det.TipoFactor)
 GROUP BY Det.IdComprobante,
          Det.TasaCuota,
          Det.EsTrasladado,
 		 Det.TipoFactor,
          Det.Impuesto;
 
-SELECT edo.IdPeriodo, edo.IdCuenta, edo.IdSocio
-FROM dbo.tFELestadoCuentaBancario edo
-INNER JOIN dbo.tIMPcomprobantesFiscales com ON com.IdComprobante = edo.IdComprobante
-WHERE edo.IdPeriodo = 397 
-GROUP BY edo.IdPeriodo,
-         edo.IdCuenta,
-         edo.IdSocio
-HAVING COUNT(*)> 1
