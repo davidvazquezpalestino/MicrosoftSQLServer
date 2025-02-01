@@ -6,7 +6,7 @@ SELECT @IdPeriodo = IdPeriodo,
        @Inicio = Inicio,
        @Fin = Fin
 FROM dbo.tCTLperiodos
-WHERE Codigo = '2024-12';
+WHERE Codigo = '2025-01';
 
 SELECT Cuenta.IdCuenta,
        CONCAT ('EXECUTE dbo.pFELgenerarEstadoCuentaBancario @IdSocio = ', Socio.IdSocio, ', @IdCuenta = ', Cuenta.IdCuenta, ', @IdPeriodo = ', @IdPeriodo)
@@ -67,3 +67,68 @@ GROUP BY Det.IdComprobante,
 		 Det.TipoFactor,
          Det.Impuesto;
 
+
+SELECT p.Nombre, *
+--  UPDATE cf SET cf.RFCReceptor = 'XAXX010101000', cf.IdUsoCfdi = 23, cf.RegimenFiscalReceptor ='616', cf.ReceptorCodigoPostal = '95000'
+-- UPDATE cf SET cf.NombreReceptor = p.RazonSocial
+FROM dbo.tIMPcomprobantesFiscales cf
+INNER JOIN dbo.tFELestadoCuentaBancario ed ON ed.IdComprobante = cf.IdComprobante
+INNER JOIN dbo.tGRLpersonas p ON p.IdPersona = cf.IdPersona
+WHERE ed.IdPeriodo = 417
+AND cf.NombreReceptor = ''
+AND cf.UUID = '';
+
+
+
+SELECT *
+-- DELETE Det
+FROM dbo.tIMPimpuestosComprobantes Det
+INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = Det.IdComprobante
+WHERE edo.IdPeriodo = 417
+
+INSERT INTO dbo.tIMPimpuestosComprobantes ( IdComprobante, Descripcion, Tasa, Impuesto, EsTrasladado, IdTipoDimpuesto, ClaveImpuesto, 
+											TasaCuota, TipoFactor, Base )
+SELECT Det.IdComprobante,
+       Descripcion = 'IVA',
+       Det.TasaCuota,
+       Importe = SUM (Det.Importe),
+       Det.EsTrasladado,
+       IdTipoDimpuesto = 264,
+       Det.Impuesto,
+       Det.TasaCuota,
+       Det.TipoFactor,
+       Base = SUM (Det.Base)
+FROM dbo.tFELdetalleImpuesto Det
+INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = Det.IdComprobante
+WHERE edo.IdPeriodo = 417
+  AND NOT EXISTS ( SELECT 1
+                   FROM dbo.tIMPimpuestosComprobantes imp
+                   WHERE imp.IdComprobante = Det.IdComprobante AND imp.TipoFactor = Det.TipoFactor)
+GROUP BY Det.IdComprobante,
+         Det.TasaCuota,
+         Det.EsTrasladado,
+		 Det.TipoFactor,
+         Det.Impuesto;
+
+
+--DELETE FROM dbo.tIMPimpuestosComprobantes WHERE IdComprobante = 75564
+
+INSERT INTO dbo.tIMPimpuestosComprobantes ( IdComprobante, Descripcion, Tasa, Impuesto, EsTrasladado, IdTipoDimpuesto, ClaveImpuesto, 
+											TasaCuota, TipoFactor, Base )
+SELECT Det.IdComprobante,
+       Descripcion = 'IVA',
+       Det.TasaCuota,
+       Importe = SUM (Det.Importe),
+       Det.EsTrasladado,
+       IdTipoDimpuesto = 264,
+       Det.Impuesto,
+       Det.TasaCuota,
+       Det.TipoFactor,
+       Base = SUM (Det.Base)
+FROM dbo.tFELdetalleImpuesto Det
+WHERE Det.IdComprobante = 75564
+GROUP BY Det.IdComprobante,
+         Det.TasaCuota,
+         Det.EsTrasladado,
+         Det.Impuesto,
+         Det.TipoFactor
