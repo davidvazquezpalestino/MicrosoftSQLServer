@@ -6,7 +6,7 @@ SELECT @IdPeriodo = IdPeriodo,
        @Inicio = Inicio,
        @Fin = Fin
 FROM dbo.tCTLperiodos
-WHERE Codigo = '2025-01';
+WHERE Codigo = '2025-02';
 
 SELECT Cuenta.IdCuenta,
        CONCAT ('EXECUTE dbo.pFELgenerarEstadoCuentaBancario @IdSocio = ', Socio.IdSocio, ', @IdCuenta = ', Cuenta.IdCuenta, ', @IdPeriodo = ', @IdPeriodo)
@@ -43,6 +43,20 @@ WHERE Cuenta.IdTipoDProducto = 143 AND
 GROUP BY Socio.IdSocio,
          Cuenta.IdCuenta;
 
+
+    INSERT INTO dbo.tFELdetalleImpuesto( IdComprobante, IdComprobanteD, Base, Impuesto, TipoFactor, TasaCuota, Importe, EsTrasladado )
+    SELECT I.IdComprobante,
+       I.IdComprobanteD,
+       I.Base,
+       I.Impuesto,
+       I.TipoFactor,
+       I.TasaCuota,
+       I.Importe,
+       I.EsTrasladado
+    FROM dbo.vImpuestosComprobante I WITH( NOLOCK )
+INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = i.IdComprobante
+WHERE edo.IdPeriodo = 418
+
 INSERT INTO dbo.tIMPimpuestosComprobantes ( IdComprobante, Descripcion, Tasa, Impuesto, EsTrasladado, IdTipoDimpuesto, ClaveImpuesto, 
 											TasaCuota, TipoFactor, Base )
 SELECT Det.IdComprobante,
@@ -57,7 +71,7 @@ SELECT Det.IdComprobante,
        Base = SUM (Det.Base)
 FROM dbo.tFELdetalleImpuesto Det
 INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = Det.IdComprobante
-WHERE edo.IdPeriodo = 402
+WHERE edo.IdPeriodo = 418
   AND NOT EXISTS ( SELECT 1
                    FROM dbo.tIMPimpuestosComprobantes imp
                    WHERE imp.IdComprobante = Det.IdComprobante AND imp.TipoFactor = Det.TipoFactor)
@@ -132,3 +146,6 @@ GROUP BY Det.IdComprobante,
          Det.EsTrasladado,
          Det.Impuesto,
          Det.TipoFactor
+
+
+EXECUTE dbo.pImpuestosComprobante
