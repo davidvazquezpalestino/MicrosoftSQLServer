@@ -1,6 +1,6 @@
 SELECT dbo.fGETidPeriodo (CURRENT_TIMESTAMP) - 1;
 
-DECLARE @IdPeriodo INT = 418;
+DECLARE @IdPeriodo INT = 419;
 
 INSERT INTO dbo.tFELfacturaGlobalIngresos ( IdOperacion, IdPeriodo, IdTransaccionFinanciera, IdOperacionD, IdImpuesto, InteresOrdinario, IVAInteresOrdinario, InteresMoratorio, IVAInteresMoratorio, IdBienServicio, Importe, IVAVenta, Subtotal, IVA )
 SELECT Operacion.IdOperacion,
