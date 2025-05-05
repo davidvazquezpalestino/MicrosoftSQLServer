@@ -6,7 +6,7 @@ SELECT @IdPeriodo = IdPeriodo,
        @Inicio = Inicio,
        @Fin = Fin
 FROM dbo.tCTLperiodos
-WHERE Codigo = '2025-02';
+WHERE Codigo = '2025-04';
 
 SELECT Cuenta.IdCuenta,
        CONCAT ('EXECUTE dbo.pFELgenerarEstadoCuentaBancario @IdSocio = ', Socio.IdSocio, ', @IdCuenta = ', Cuenta.IdCuenta, ', @IdPeriodo = ', @IdPeriodo)
@@ -55,7 +55,7 @@ GROUP BY Socio.IdSocio,
        I.EsTrasladado
     FROM dbo.vImpuestosComprobante I WITH( NOLOCK )
 INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = i.IdComprobante
-WHERE edo.IdPeriodo = 418
+WHERE edo.IdPeriodo = 420
 
 INSERT INTO dbo.tIMPimpuestosComprobantes ( IdComprobante, Descripcion, Tasa, Impuesto, EsTrasladado, IdTipoDimpuesto, ClaveImpuesto, 
 											TasaCuota, TipoFactor, Base )
@@ -71,7 +71,7 @@ SELECT Det.IdComprobante,
        Base = SUM (Det.Base)
 FROM dbo.tFELdetalleImpuesto Det
 INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = Det.IdComprobante
-WHERE edo.IdPeriodo = 418
+WHERE edo.IdPeriodo = 420
   AND NOT EXISTS ( SELECT 1
                    FROM dbo.tIMPimpuestosComprobantes imp
                    WHERE imp.IdComprobante = Det.IdComprobante AND imp.TipoFactor = Det.TipoFactor)
@@ -88,8 +88,8 @@ SELECT p.Nombre, *
 FROM dbo.tIMPcomprobantesFiscales cf
 INNER JOIN dbo.tFELestadoCuentaBancario ed ON ed.IdComprobante = cf.IdComprobante
 INNER JOIN dbo.tGRLpersonas p ON p.IdPersona = cf.IdPersona
-WHERE ed.IdPeriodo = 417
-AND cf.NombreReceptor = ''
+WHERE ed.IdPeriodo = 420
+--AND cf.NombreReceptor = ''
 AND cf.UUID = '';
 
 
@@ -114,7 +114,7 @@ SELECT Det.IdComprobante,
        Base = SUM (Det.Base)
 FROM dbo.tFELdetalleImpuesto Det
 INNER JOIN dbo.tFELestadoCuentaBancario edo ON edo.IdComprobante = Det.IdComprobante
-WHERE edo.IdPeriodo = 417
+WHERE edo.IdPeriodo = 77641
   AND NOT EXISTS ( SELECT 1
                    FROM dbo.tIMPimpuestosComprobantes imp
                    WHERE imp.IdComprobante = Det.IdComprobante AND imp.TipoFactor = Det.TipoFactor)
@@ -140,12 +140,10 @@ SELECT Det.IdComprobante,
        Det.TipoFactor,
        Base = SUM (Det.Base)
 FROM dbo.tFELdetalleImpuesto Det
-WHERE Det.IdComprobante = 75564
+WHERE Det.IdComprobante = 77641
 GROUP BY Det.IdComprobante,
          Det.TasaCuota,
          Det.EsTrasladado,
          Det.Impuesto,
          Det.TipoFactor
 
-
-EXECUTE dbo.pImpuestosComprobante
