@@ -8,7 +8,7 @@
        I.Importe,
        I.EsTrasladado
     FROM dbo.vImpuestosComprobante I WITH( NOLOCK )
-WHERE I.IdComprobante = 77641
+WHERE I.IdComprobante = 78923
 
 INSERT INTO dbo.tIMPimpuestosComprobantes ( IdComprobante, Descripcion, Tasa, Impuesto, EsTrasladado, IdTipoDimpuesto, ClaveImpuesto, 
 											TasaCuota, TipoFactor, Base )
@@ -23,7 +23,7 @@ SELECT Det.IdComprobante,
        Det.TipoFactor,
        Base = SUM (Det.Base)
 FROM dbo.tFELdetalleImpuesto Det
-WHERE Det.IdComprobante = 77641
+WHERE Det.IdComprobante = 78923
   AND NOT EXISTS ( SELECT 1
                    FROM dbo.tIMPimpuestosComprobantes imp
                    WHERE imp.IdComprobante = Det.IdComprobante AND imp.TipoFactor = Det.TipoFactor)
