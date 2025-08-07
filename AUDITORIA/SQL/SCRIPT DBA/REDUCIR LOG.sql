@@ -1,27 +1,23 @@
-DECLARE @BD AS VARCHAR(100) = DB_NAME();
+DECLARE @DBName NVARCHAR(128) = DB_NAME ();
+DECLARE @LogFileName NVARCHAR(128);
 
+SELECT @LogFileName = name
+FROM sys.database_files
+WHERE type_desc = 'LOG';
 
-DECLARE @SqlCommand AS NVARCHAR(MAX);
+DECLARE @sql NVARCHAR(MAX) = N'
+ALTER DATABASE [' + @DBName + N'] SET RECOVERY SIMPLE;
 
-SELECT @SqlCommand = CONCAT('
-USE ', @BD, ';
+DBCC SHRINKFILE (@LogFileName, 1);
 
--- cambiamos el recovery a nodo simple
-ALTER DATABASE ', @BD, '
-SET RECOVERY SIMPLE;
+DBCC SHRINKDATABASE (@DBName);
 
--- reducirmos el archivo log a 1 MB.
-DBCC SHRINKFILE (', @BD, '_Log, 1);
+ALTER DATABASE [' + @DBName + N'] SET RECOVERY FULL;';
 
--- reducirmos la base de datos.
-DBCC SHRINKDATABASE(N''', @BD, ''' )
+EXEC sp_executesql @sql,
+                   N'@LogFileName NVARCHAR(128), @DBName NVARCHAR(128)',
+                   @LogFileName = @LogFileName,
+                   @DBName = @DBName;
 
--- devolvemos el nivel de recovery a full
-ALTER DATABASE ', @BD, '
-SET RECOVERY FULL;
-');
-
-EXECUTE( @SqlCommand );
-
-
-
+SELECT DBName = @DBName,
+       LogFileName = @LogFileName;

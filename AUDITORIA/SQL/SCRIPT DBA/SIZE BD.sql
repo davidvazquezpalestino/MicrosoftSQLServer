@@ -1,13 +1,21 @@
-SELECT [BD] = DB_NAME (database_id),
-       [TYPE] = CASE WHEN type_desc = 'ROWS' THEN 'DATA FILE(S)'
-                     WHEN type_desc = 'LOG' THEN 'LOG FILE(S)'
-                     ELSE 'SUM'
-                END,
-       [SIZE IN MB] = CAST((( SUM (size) * 8 ) / 1024.0 ) AS DECIMAL(18, 2)),
-       [SIZE IN GB] = CAST(((( SUM (size) * 8 ) / 1024.0 ) / 1024 ) AS DECIMAL(18, 2))
-FROM sys.master_files
-WHERE database_id = DB_ID (DB_NAME ())
-GROUP BY GROUPING SETS((DB_NAME (database_id), type_desc), (DB_NAME (database_id)))
-ORDER BY DB_NAME (database_id),
-         type_desc DESC;
-GO
+SELECT [BaseDatos] = DB_NAME (),
+       [TipoArchivo] = CASE f.type_desc WHEN 'ROWS' THEN
+                                            'DATOS'
+                                        WHEN 'LOG' THEN
+                                            'LOG'
+                                        ELSE
+                                            f.type_desc
+                       END,
+       [NombreLogico] = f.name,
+       [RutaFisica] = f.physical_name,
+       [EspacioUsadoMegabytes] = CAST (FILEPROPERTY ( f.name, 'SpaceUsed' ) * 8.0 / 1024 AS DECIMAL(18, 2)),
+       [EspacioUsadoGigabytes] = CAST (FILEPROPERTY ( f.name, 'SpaceUsed' ) * 8.0 / 1024 / 1024 AS DECIMAL(18, 2))
+FROM sys.database_files AS f
+ORDER BY CASE f.type_desc WHEN 'ROWS' THEN
+                              1
+                          WHEN 'LOG' THEN
+                              2
+                          ELSE
+                              3
+         END,
+         f.name;
